@@ -1,16 +1,50 @@
-import { Text, View, StyleSheet, ImageBackground } from "react-native";
+import { useState } from "react";
+import { View, StyleSheet, ImageBackground, SafeAreaView } from "react-native";
 import StartGameScreen from "../screens/startgamescreen";
 import React from "react";
 import { LinearGradient } from 'expo-linear-gradient';
+import MainGameScreen from '../screens/maingamescreen';
+import Colors from "@/constants/colors";
+import GameOverScreen from "../screens/gameoverscreen";
 
 const image = {uri: 
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6PeUaM2pw4N2tAXHDF6v2YnvRyjQlqmUlUw&s'};
 
 export default function Index() {
+  const [userNumber, setUserNumber] = useState<number | null>(null); 
+  const [gameOver, setGameOver] = useState(true);
+  const [guessRounds, setguessRounds] = useState(0);
+
+
+  const pickNumberHandler = (pickedNumber: any) =>{
+    setUserNumber(pickedNumber);
+    setGameOver(false);
+  }
+
+  const gameIsOver = (numberOfRounds: number) => {
+    setGameOver(true);
+    setguessRounds(numberOfRounds);
+  }
+
+  const restartGameHandler =()=>{
+    setUserNumber(null);
+    setGameOver(false);
+  }
+
+  let screen = <StartGameScreen onPickNumber={pickNumberHandler} />;
+
+  if (userNumber) {
+    screen = <MainGameScreen userNumber={userNumber} onGameOver={gameIsOver} />;
+  }
+
+  if (gameOver && userNumber){
+    screen = <GameOverScreen roundsNumber={guessRounds} userNumber={userNumber} onGameRestart={restartGameHandler} />;
+  }
+
   return (
     <View style={styles.indexcontainer}>
         <LinearGradient
-        colors={['#4e0329', '#ddb52f', 
+        colors={[ Colors.primary3, Colors.primary2, 
         'transparent']}
         style={styles.background}
       />
@@ -18,7 +52,9 @@ export default function Index() {
       resizeMode="cover" 
       style={styles.image}
       imageStyle={{opacity: 0.15}}>
-       <StartGameScreen />
+        <SafeAreaView style={{flex: 1}}>
+          {screen}
+        </SafeAreaView>
       </ImageBackground>
     </View>
   );
@@ -27,7 +63,7 @@ export default function Index() {
 const styles = StyleSheet.create({
   indexcontainer: {
     flex: 1,
-    backgroundColor: '#ddb52f',
+    backgroundColor: Colors.primary2,
   },
   background: {
     position: 'absolute',

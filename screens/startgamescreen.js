@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, Alert } from 'react-native';
-import PrimaryButton from '../components/primarybutton';
+import PrimaryButton from '../components/ui/primarybutton';
+import TitleText from '../components/ui/titletext';
+import Colors from '@/constants/colors';
 
-function StartGameScreen() {
+function StartGameScreen({onPickNumber}) {
   const [enteredNumber, setEnteredNumber] = useState('');
 
   const numberInputHandler = (enteredText) => {
@@ -26,13 +28,13 @@ function StartGameScreen() {
       ]);
       return;
     } else {
-      alert('You entered: ' + chosenNumber);
+      onPickNumber(chosenNumber);
   }
 }
 
   return (
     <View style={styles.screen}>
-      <Text style={styles.title}>Guess My Number</Text>
+      <TitleText text="Guess My Number" />
       <View style={styles.inputContainer}>
         <Text style={styles.inputtitle} >Enter a Number</Text>
         <TextInput 
@@ -62,41 +64,31 @@ const styles = StyleSheet.create({
     marginTop: 50,
     
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    borderWidth: 2,
-    borderColor: 'white',
-    padding: 15,
-    borderRadius: 6,
-    width: 200,
-    textAlign: 'center',
-  },
   inputContainer: {
     maxWidth: '90%',
     alignItems: 'center',
-    backgroundColor: '#3b021f',
+    backgroundColor: Colors.secondary,
     paddingVertical: 25,
     borderRadius: 8,
-    elevation: 4,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.25,
+    // elevation: 4,
+    // shadowColor: 'black',
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowRadius: 6,
+    // shadowOpacity: 0.25,
   },
   inputtitle: {
     fontSize: 22,
-    color: '#ddb52f'
+    color: Colors.primary2
   },
   input: {
     height: 50,
     width: 50,
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#ddb52f',
+    color: Colors.primary2,
     textAlign: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#ddb52f',
+    borderBottomColor: Colors.primary2,
     marginVertical: 8,
   },
   buttonContainer: {

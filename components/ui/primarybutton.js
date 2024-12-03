@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import Colors from '../../constants/colors';
 
 const PrimaryButton = ({ title, onPress }) => {
   return (
@@ -13,13 +14,17 @@ const PrimaryButton = ({ title, onPress }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#72063c',
+    backgroundColor: Colors.primary1,
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 28,
     alignItems: 'center',
     width: '50%',
-    elevation: '2',
+    // elevation: '2',
+    // shadowColor: 'black',
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowRadius: 6,
+    // shadowOpacity: 0.25,
     overflow: 'hidden',
   },
   buttonText: {
