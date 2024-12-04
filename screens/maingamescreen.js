@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Alert } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Alert, useWindowDimensions } from 'react-native';
 import PrimaryButton from '@/components/ui/primarybutton';
 import TitleText from '@/components/ui/titletext';
 import Colors from '@/constants/colors';
@@ -69,17 +69,34 @@ export default function MainGameScreen(userNumber, onGameOver) {
 
   const guessRoundsListLength = guessRounds.length;
 
+  const {width, height} =useWindowDimensions();
+
+  let content =       
+  <>
+  <NumberGuessContainer children={currentGuess}/>
+  <View style={styles.currentGuessContainer}>
+    <Text style={styles.currentGuesstitle} >Higher or lower?</Text>
+    <View style={styles.buttonContainer}>
+      <PrimaryButton title="+" onPress={handleIncrement} />
+      <PrimaryButton title="-" onPress={handleDecrement} />
+    </View>
+  </View>
+  </>;
+
+  if (width > 500) {
+    content = <>
+    <View style={styles.landscapeView}>
+    <PrimaryButton title="+" onPress={handleIncrement} />
+    <NumberGuessContainer children={currentGuess}/>
+    <PrimaryButton title="-" onPress={handleDecrement} />
+    </View>
+    </>
+  }
+
   return (
     <View style={styles.container}>
       <TitleText text="Opponent's Guess" />
-      <NumberGuessContainer children={currentGuess}/>
-      <View style={styles.currentGuessContainer}>
-        <Text style={styles.currentGuesstitle} >Higher or lower?</Text>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton title="+" onPress={handleIncrement} />
-          <PrimaryButton title="-" onPress={handleDecrement} />
-        </View>
-      </View>
+      {content}
       <View style={styles.listContainer}>
       <FlatList 
         data={guessRounds} 
@@ -131,5 +148,11 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     padding: 16,
+  },
+  landscapeView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
   }
 });

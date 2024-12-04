@@ -38,7 +38,7 @@ function StartGameScreen({onPickNumber}) {
 const marginTopSpace = height < 380 ? 40 : 70;
 
   return (
-    <ScrollView style={styles.mainscreen}> //this is to handle the view
+    <ScrollView style={styles.mainscreen}>
       <KeyboardAvoidingView style={styles.mainscreen} behavior="position">
         <View style={[styles.screen, {marginTop: marginTopSpace}]}>
           <TitleText text="Guess My Number" />
