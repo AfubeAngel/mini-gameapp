@@ -6,6 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import MainGameScreen from '../screens/maingamescreen';
 import Colors from "@/constants/colors";
 import GameOverScreen from "../screens/gameoverscreen";
+import { StatusBar } from "expo-status-bar";
 
 const image = {uri: 
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6PeUaM2pw4N2tAXHDF6v2YnvRyjQlqmUlUw&s'};
@@ -42,6 +43,8 @@ export default function Index() {
   }
 
   return (
+    <>
+    <StatusBar style="light" />
     <View style={styles.indexcontainer}>
         <LinearGradient
         colors={[ Colors.primary3, Colors.primary2, 
@@ -57,6 +60,7 @@ export default function Index() {
         </SafeAreaView>
       </ImageBackground>
     </View>
+    </>
   );
 }
 
