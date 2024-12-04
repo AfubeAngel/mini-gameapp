@@ -1,6 +1,10 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import Colors from '@/constants/colors';
+
+const deviceWidth = Dimensions.get('window').width;
+const deviceHeight = Dimensions.get('window').height;
+
 
 const NumberGuessContainer =({children}) => {
     return(
@@ -16,13 +20,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 4,
     borderColor: Colors.primary2,
-    padding: 10,
+    padding: deviceHeight < 400 ? 10 : 12,
     borderRadius: 8,
     textAlign: 'center',
+    maxWidth: '80%',
     width: '80%',
   },
   title: {
-    fontSize: 36,
+    fontSize: deviceWidth < 380 ? 28 : 36,
     fontWeight: 'bold',
   },
 });

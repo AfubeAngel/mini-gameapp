@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
 import TitleText from '@/components/ui/titletext';
 import Colors from '../constants/colors';
 import PrimaryButton from '@/components/ui/primarybutton';
 
+const deviceWidth = Dimensions.get('window').width;
 
 const GameOverScreen = ({ roundsNumber, userNumber, onGameRestart }) => {
+
   return (
     <View style={styles.container}>
       <TitleText text="GAME OVER!!" />
@@ -33,11 +35,11 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   imageContainer: {
-    width: 300,
-    height: 300,
+    width: deviceWidth < 380 ? 150: 300,
+    height: deviceWidth < 380 ? 150: 300,
     borderWidth: 3,
     borderColor: Colors.primary2,
-    borderRadius: 150, //should be half of the width and height for circular shape
+    borderRadius: deviceWidth < 380 ? 75: 150, //should be half of the width and height for circular shape
     overflow: 'hidden',
     margin: 15,
   },
